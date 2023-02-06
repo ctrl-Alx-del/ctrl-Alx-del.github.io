@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <label><input type="text" name="myInput" id="myInput" /></label>
+    <select id="changer">
+      <option value="uppercase">If input is first name: Make the fist character in a name uppercase, and the rest lowercase</option>
+      <option value="firstName">If input is a full name: Find the first name</option>
+      <option value="firstNameLength">If input is a full name: Find the length of the first name</option>
+      <option value="middleName">If input is full name: Find the middle name start and end position, and the middle name itself in a full name string</option>
+      <option value="fileName">If input is a filename: Check if a filename is .png or .jpg</option>
+      <option value="password">If input is a password: Hide a password with the correct number of *'s</option>
+      <option value="thirdCapitalized">With any input: Make the third character in a name uppercase</option>
+      <option value="anyCharUpper">With any input: Make a character uppercase, if it follows a space or a hyphen</option>
+    </select>
+    <output id="myOutput">Output goes here</output>
+    <button>Generate output</button>
+    <script src="script.js"></script>
+  </body>
+</html>
