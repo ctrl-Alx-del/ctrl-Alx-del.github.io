@@ -28,10 +28,18 @@ function generateOutput() {
   } else if (option === "thirdCapitalized") {
     myOutput.textContent = myInput.value.substring(0, 2) + myInput.value[2].toUpperCase() + myInput.value.substring(3, myInput.value.length);
   } else if (option === "anyCharUpper") {
-    const anySpace = myInput.value.indexOf(" ") + 1;
-    const anySpace2 = myInput.value.indexOf(" ", anySpace) + 1;
-    const anySpace3 = myInput.value.indexOf(" ", anySpace2) + 1;
-    myOutput.textContent = myInput.value[0].toUpperCase() + myInput.value[anySpace].toUpperCase() + myInput.value[anySpace2].toUpperCase() + myInput.value[anySpace3].toUpperCase();
+    // const anySpace = myInput.value.indexOf(" ") + 1;
+    // const anySpace2 = myInput.value.indexOf(" ", anySpace) + 1;
+    // const anySpace3 = myInput.value.indexOf(" ", anySpace2) + 1;
+    // myOutput.textContent = myInput.value[0].toUpperCase() + myInput.value[anySpace].toUpperCase() + myInput.value[anySpace2].toUpperCase() + myInput.value[anySpace3].toUpperCase();
+
+    Array.from(myInput.value).forEach((letter, i) => {
+      if (myInput.value[i - 1] === " " || myInput.value[i - 1] === "-") {
+        myOutput.textContent += myInput.value[i].toUpperCase();
+      } else {
+        myOutput.textContent += myInput.value[i];
+      }
+    });
 
     // let subsequentWords = "";
     // let subsequentNumber = myInput.value.split(" ");
