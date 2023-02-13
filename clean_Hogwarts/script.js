@@ -46,8 +46,8 @@ function cleanData(studentData) {
       .join("-");
 
     student.last_name = lastNameCleaned;
-    //middle name data cleaned
 
+    //middle name data cleaned
     const nameSplitted1 = studentObject.fullname.trim();
     let nameSplitted2 = nameSplitted1.indexOf(" ");
     if (studentObject.fullname.indexOf(" ") === 0) {
@@ -69,7 +69,17 @@ function cleanData(studentData) {
     }
 
     student.middle_name = middleName;
-    // console.log(studentObject);
+
+    //images test solution, not functioning as of yet
+    //fileName should contain an array of the image names OR there the image names should be fetched from the JSON file
+    let fileName = "a_h.png";
+    if (fileName.endsWith(firstName.charAt(0).toLowerCase() + ".png")) {
+      //for names that end on the first character in the first name
+      console.log("fired");
+      document.querySelector("img").src = "images/" + lastName.toLowerCase() + "_" + firstName.charAt(0).toLowerCase();
+      //for names that end on a full first name
+      // document.querySelector("img").src = "images/" + lastName.toLowerCase() + "_" + firstName.toLowerCase();
+    }
 
     //student object pushed onto allStudents array
     allStudents.push(student);
