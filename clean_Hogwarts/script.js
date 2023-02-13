@@ -47,19 +47,31 @@ function cleanData(studentData) {
 
     student.last_name = lastNameCleaned;
     //middle name data cleaned
-    const nameSplitted1 = studentObject.fullname.trim().indexOf(" ");
-    const nameSplitted3 = studentObject.fullname.lastIndexOf(" ");
-    const middleName = studentObject.fullname.substring(nameSplitted1, nameSplitted3);
-    // if (middleName === "") {
-    //   return null;
-    // } else {
-    //     middleName.charAt(0)
-    // }
-    student.middle_name = middleName;
-    console.log(studentObject);
-    //student object pushed onto allStudents array
-    console.log(middleName);
 
+    const nameSplitted1 = studentObject.fullname.trim();
+    let nameSplitted2 = nameSplitted1.indexOf(" ");
+    if (studentObject.fullname.indexOf(" ") === 0) {
+      //Some weird bug where it took the index right before what it should be. So i just added 1 more to move and fix it.
+      nameSplitted2 = nameSplitted2 + 1;
+    }
+    const nameSplitted3 = studentObject.fullname.lastIndexOf(" ");
+    let middleName = studentObject.fullname.substring(nameSplitted2, nameSplitted3);
+    middleName = middleName.trim();
+
+    if (middleName.indexOf('"') === 0) {
+      middleName = middleName.slice(1, middleName.lastIndexOf('"'));
+    }
+
+    if (middleName.length === 0) {
+      middleName = undefined;
+    } else {
+      middleName = middleName.charAt(0).toUpperCase() + middleName.slice(1);
+    }
+
+    student.middle_name = middleName;
+    // console.log(studentObject);
+
+    //student object pushed onto allStudents array
     allStudents.push(student);
   });
   console.table(allStudents);
