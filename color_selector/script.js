@@ -6,18 +6,18 @@ function receiveInput() {
   //inputValue is already hex as it comes in, so it doesn't have to be calculated
   let inputValue = document.querySelector("input").value;
 
-  //sends the raw hex input to the display function
-  displayColor(inputValue, calcRGB(inputValue));
+  //sends the raw hex input to the display function. Then it converts hex to rgb and finally converts hex to rgb to hsl
+  displayColor(inputValue, calcRGB(inputValue), calcHSL(calcRGB(inputValue)));
 }
 
-function displayColor(hex, rgb) {
+function displayColor(hex, rgb, hsl) {
   //changes the background color of the display
   document.querySelector(".selected-color").style.backgroundColor = hex;
   //changes the hex color code in the first paragraph
   document.querySelector("p").innerHTML += " " + hex;
   //changes the rgb code in the second paragraph
   document.querySelector(".color-display > p:nth-child(3)").innerHTML += ` ${rgb.r}, ${rgb.g}, ${rgb.b}`;
-  //   document.querySelector(".color-display > p:nth-child(4)").innerHTML += " " + input;
+  document.querySelector(".color-display > p:nth-child(4)").innerHTML += ` ${hsl.h}, ${hsl.s}, ${hsl.l}`;
 }
 
 function calcRGB(hexColor) {
@@ -32,7 +32,11 @@ function calcRGB(hexColor) {
   };
 }
 
-function calcHSL(r, g, b) {
+function calcHSL(rgb) {
+  let r = rgb.r;
+  let g = rgb.g;
+  let b = rgb.b;
+
   r /= 255;
   g /= 255;
   b /= 255;
@@ -75,7 +79,10 @@ function calcHSL(r, g, b) {
 
   //   "hsl(%f,%f%,%f%)"
 
-  console.log(h, s, l); // just for testing
+  // console.log(h, s, l); // just for testing
+  return {
+    h,
+    s,
+    l,
+  };
 }
-
-calcHSL(200, 50, 255);
