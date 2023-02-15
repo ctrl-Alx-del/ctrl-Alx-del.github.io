@@ -1,0 +1,21 @@
+.selected-color {
+  height: 100px;
+  width: 100px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
+  border-radius: 0.5em;
+}
+
+.container {
+  display: flex;
+}
+
+.color-display {
+  border: 1px solid black;
+  border-radius: 0.5em;
+  background-color: rgb(210, 210, 210);
+}
+
+p {
+  padding-left: 10px;
+}
