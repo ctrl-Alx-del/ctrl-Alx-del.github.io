@@ -3,6 +3,7 @@
 window.addEventListener("DOMContentLoaded", start);
 
 let allAnimals = [];
+let filter = "*";
 
 // The prototype for all animals:
 const Animal = {
@@ -16,6 +17,9 @@ function start() {
   console.log("ready");
 
   // TODO: Add event-listeners to filter and sort buttons
+  document.querySelectorAll(".filter").forEach((eachButton) => {
+    eachButton.addEventListener("click", dataFilter);
+  });
 
   loadJSON();
 }
@@ -67,4 +71,18 @@ function displayAnimal(animal) {
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
+}
+
+function dataFilter(event) {
+  // filter = this.dataset.filter;
+  filter = event.target.dataset.filter;
+  console.log(filter);
+}
+
+function isCat(animal) {
+  if (animal === "cat") {
+    return true;
+  } else {
+    return false;
+  }
 }
