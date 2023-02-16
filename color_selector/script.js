@@ -5,19 +5,18 @@ window.addEventListener("DOMContentLoaded", receiveInput);
 function receiveInput() {
   //inputValue is already hex as it comes in, so it doesn't have to be calculated
   let inputValue = document.querySelector("input").value;
+  let colorWell = document.querySelector("input");
+  colorWell.addEventListener("input", displayColor);
 
-  //sends the raw hex input to the display function. Then it converts hex to rgb and finally converts hex to rgb to hsl
-  displayColor(inputValue, calcRGB(inputValue), calcHSL(calcRGB(inputValue)));
+  displayValue(inputValue, calcRGB(inputValue), calcHSL(calcRGB(inputValue)));
 }
 
-function displayColor(hex, rgb, hsl) {
-  //changes the background color of the display
-  document.querySelector(".selected-color").style.backgroundColor = hex;
+function displayValue(hex, rgb, hsl) {
   //changes the hex color code in the first paragraph
-  document.querySelector("p").innerHTML += " " + hex;
+  document.querySelector("p").innerHTML = " " + hex;
   //changes the rgb code in the second paragraph
-  document.querySelector(".color-display > p:nth-child(3)").innerHTML += ` ${rgb.r}, ${rgb.g}, ${rgb.b}`;
-  document.querySelector(".color-display > p:nth-child(4)").innerHTML += ` ${hsl.h}, ${hsl.s}, ${hsl.l}`;
+  document.querySelector(".color-display > p:nth-child(3)").innerHTML = ` ${rgb.r}, ${rgb.g}, ${rgb.b}`;
+  document.querySelector(".color-display > p:nth-child(4)").innerHTML = ` ${hsl.h}, ${hsl.s}, ${hsl.l}`;
 }
 
 function calcRGB(hexColor) {
@@ -85,4 +84,13 @@ function calcHSL(rgb) {
     s,
     l,
   };
+}
+
+function displayColor(event) {
+  let newColor = event.target.value;
+
+  displayValue(newColor, calcRGB(newColor), calcHSL(calcRGB(newColor)));
+
+  //changes the background color of the display
+  document.querySelector(".selected-color").style.backgroundColor = newColor;
 }
