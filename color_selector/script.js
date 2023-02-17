@@ -31,6 +31,8 @@ function calcRGB(hexColor) {
   };
 }
 
+//Her kunne man også have skrevet r, g, b som parametre. På den måde undgår man at lave ekstra variabler.
+//Når man kalder calcHSL skal man dog bryde objektet op med dot notation
 function calcHSL(rgb) {
   let r = rgb.r;
   let g = rgb.g;
