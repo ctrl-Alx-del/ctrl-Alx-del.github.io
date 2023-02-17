@@ -3,7 +3,10 @@
 window.addEventListener("DOMContentLoaded", start);
 
 let allAnimals = [];
-let filter = "*";
+//Our global variables in the form of an object
+const globalProps = {
+  chosenFilter: "*",
+};
 
 // The prototype for all animals:
 const Animal = {
@@ -36,7 +39,23 @@ function prepareObjects(jsonData) {
   allAnimals = jsonData.map(preapareObject);
 
   // TODO: This might not be the function we want to call first
-  displayList(allAnimals);
+
+  buildList();
+}
+
+function buildList() {
+  const currentList = filterList(allAnimals);
+  displayList(currentList);
+}
+
+function filterList(theFilteredList) {
+  if (globalProps.chosenFilter === "cat") {
+    theFilteredList = allAnimals.filter(isCat);
+  } else if (globalProps.chosenFilter === "dog") {
+    theFilteredList = allAnimals.filter(isDog);
+  }
+
+  return theFilteredList;
 }
 
 function preapareObject(jsonObject) {
@@ -75,14 +94,19 @@ function displayAnimal(animal) {
 
 function dataFilter(event) {
   // filter = this.dataset.filter;
-  filter = event.target.dataset.filter;
-  console.log(filter);
+  globalProps.chosenFilter = event.target.dataset.filter;
+  console.log(globalProps.chosenFilter);
+  buildList();
 }
 
 function isCat(animal) {
-  if (animal === "cat") {
+  if (animal.type === "cat") {
     return true;
-  } else {
-    return false;
+  }
+}
+
+function isDog(animal) {
+  if (animal.type === "dog") {
+    return true;
   }
 }
