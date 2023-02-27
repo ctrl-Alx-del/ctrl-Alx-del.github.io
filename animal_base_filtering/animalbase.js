@@ -6,6 +6,8 @@ let allAnimals = [];
 //Our global variables in the form of an object
 const globalProps = {
   chosenFilter: "*",
+  sortDir: "asc",
+  sortBy: "",
 };
 
 // The prototype for all animals:
@@ -24,6 +26,10 @@ function start() {
     eachButton.addEventListener("click", dataFilter);
   });
 
+  //addEventListener so you can click on sort name
+  document.querySelectorAll("[data-action='sort']").forEach((eachButton) => {
+    eachButton.addEventListener("click", selectSort);
+  });
   loadJSON();
 }
 
@@ -45,7 +51,8 @@ function prepareObjects(jsonData) {
 
 function buildList() {
   const currentList = filterList(allAnimals);
-  displayList(currentList);
+  const sortedList = sortList(currentList);
+  displayList(sortedList);
 }
 
 function filterList(theFilteredList) {
@@ -92,13 +99,6 @@ function displayAnimal(animal) {
   document.querySelector("#list tbody").appendChild(clone);
 }
 
-function dataFilter(event) {
-  // filter = this.dataset.filter;
-  globalProps.chosenFilter = event.target.dataset.filter;
-  console.log(globalProps.chosenFilter);
-  buildList();
-}
-
 function isCat(animal) {
   if (animal.type === "cat") {
     return true;
@@ -109,4 +109,60 @@ function isDog(animal) {
   if (animal.type === "dog") {
     return true;
   }
+}
+
+function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+
+  //toggle direction
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else {
+    event.target.dataset.sortDirection = "asc";
+  }
+
+  console.log(`User selected ${sortBy} - ${sortDir}`);
+  setSort(sortBy, sortDir);
+}
+
+function sortList(sortedList) {
+  let direction = 1;
+  if (globalProps.sortDir === "desc") {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
+
+  sortedList = sortedList.sort(sortByProperty);
+
+  function sortByProperty(animalA, animalB) {
+    if (animalA[globalProps.sortBy] < animalB[globalProps.sortBy]) {
+      return -1 * direction;
+    } else if (animalA[globalProps.sortBy] > animalB[globalProps.sortBy]) {
+      return 1 * direction;
+    } else {
+      return 0;
+    }
+  }
+
+  return sortedList;
+}
+
+function dataFilter(event) {
+  const filter = event.target.dataset.filter;
+  setFilter(filter);
+}
+
+function setFilter(filterBy) {
+  globalProps.chosenFilter = filterBy;
+  console.log(globalProps.chosenFilter);
+  buildList();
+}
+
+function setSort(sortBy, sortDir) {
+  globalProps.sortBy = sortBy;
+  globalProps.sortDir = sortDir;
+
+  buildList();
 }
